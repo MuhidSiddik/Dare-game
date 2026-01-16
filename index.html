@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dare Master</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            text-align: center;
+            color: white;
+            padding-top: 40px;
+        }
+        .box {
+            background: white;
+            color: #333;
+            width: 360px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        button {
+            margin: 8px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .easy { background: #4caf50; color: white; }
+        .medium { background: #ff9800; color: white; }
+        .hard { background: #f44336; color: white; }
+        .timer { background: #2196f3; color: white; }
+        #dare {
+            font-size: 18px;
+            min-height: 90px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🔥 Dare Master Game 🔥</h1>
+
+<div class="box">
+    <div id="dare">Choose difficulty to get a dare</div>
+
+    <button class="easy" onclick="getDare('easy')">Easy</button>
+    <button class="medium" onclick="getDare('medium')">Medium</button>
+    <button class="hard" onclick="getDare('hard')">Hard</button>
+    <br>
+    <button class="timer" onclick="startTimer()">⏱️ Start 30s Timer</button>
+</div>
+
+<script>
+const actions = [
+    "do", "say", "act like", "draw", "name", "pretend to be",
+    "spell", "clap", "jump", "think of"
+];
+
+const tasks = [
+    "a robot", "your favorite animal", "a superhero",
+    "5 fruits", "the alphabet backwards",
+    "a funny face", "a happy song",
+    "a cartoon character", "a random word"
+];
+
+const counts = [
+    "5 times", "10 times", "15 times", "for 20 seconds",
+    "for 30 seconds", "without stopping"
+];
+
+const rules = [
+    "while smiling",
+    "without laughing",
+    "with one hand",
+    "while standing",
+    "as fast as you can",
+    "with your eyes closed"
+];
+
+function random(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function getDare(level) {
+    let dare = "";
+
+    if (level === "easy") {
+        dare = `${random(actions)} ${random(tasks)} ${random(counts)}`;
+    }
+
+    if (level === "medium") {
+        dare = `${random(actions)} ${random(tasks)} ${random(counts)} ${random(rules)}`;
+    }
+
+    if (level === "hard") {
+        dare = `${random(actions)} ${random(tasks)} ${random(counts)} ${random(rules)} AND ${random(actions)} ${random(tasks)}`;
+    }
+
+    document.getElementById("dare").innerText = dare;
+}
+
+function startTimer() {
+    let time = 30;
+    const box = document.getElementById("dare");
+    const interval = setInterval(() => {
+        box.innerText = "⏱️ Time left: " + time + " seconds";
+        time--;
+        if (time < 0) {
+            clearInterval(interval);
+            box.innerText = "✅ Time's up!";
+        }
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
